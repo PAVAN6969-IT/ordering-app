@@ -1,0 +1,77 @@
+<div class="row main-cont">
+  <div class="col-md-6 offset-md-2 ordering-container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="../../../assets/images/1.jpg" class="d-block w-100" alt="1">
+        </div>
+        <div class="carousel-item">
+          <img src="../../../assets/images/2.jpg" class="d-block w-100" alt="2">
+        </div>
+        <div class="carousel-item">
+          <img src="../../../assets/images/3.jpg" class="d-block w-100" alt="3">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!-- menu list -->
+    <!-- <accordion [isAnimated]="true" *ngFor="let item of menuContent; let i = index">
+      <accordion-group heading="{{item.menuHeading}}">
+        <div class="accordion-body" *ngFor="let initem of item.menuList; let j = index">
+          <div class="item-section">
+            <p> {{initem.itemName}} </p>
+            <p>&#x20b9; <code> {{initem.itemPrice}}</code></p>
+          </div>
+          <div class="btn-section">
+            <button *ngIf="initem['quantity'] == 0" type="button" (click)="addItemBtn(initem)"
+              class="btn btn-light">Add</button>
+            <div *ngIf="initem['quantity'] != 0">
+              <button class="btn btn-light" (click)="backToAddItemBtn(initem)"><i class="fa fa-minus"></i></button>
+              <span class="quantityNumber">{{initem['quantity']}}</span>
+              <button class="btn btn-light" (click)="addMoreQuantity(initem)"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+        </div>
+      </accordion-group>
+    </accordion> -->
+    <!-- cartSelect -->
+  </div>
+  <div class="cust-sticky-top col-md-4 cart-section" *ngIf="enableCart">
+    <div class="cart-inner-section">
+      <h3>Cart Empty</h3>
+      <div class="item-section">
+        <code *ngIf="totalItemsSelected" > {{totalItemsSelected}} Item</code>
+      </div>
+      <div *ngFor="let item of cartItems">
+        <div class="quantity-section">
+          <h6 class="cart-Items">{{item.itemName}}</h6>
+          <p class="cart-Items"> &#x20b9; <code> {{item.quantity * item.itemPrice}}</code></p>
+        </div>
+      </div>
+    </div>
+    <div class="total-section">
+      <div class="cost-area">
+        <h5 class="cart-Items">Subtotal</h5>
+        <p class="cart-Items"> &#x20b9; <code> {{subTotalVal}}</code></p>
+      </div>
+      <button class="btn btn-info" type="button">Checkout <i class="fa fa-right arroe"></i></button>
+    </div>
+  </div>
+</div>
