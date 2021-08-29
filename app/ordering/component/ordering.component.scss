@@ -1,0 +1,60 @@
+.main-cont {
+    display: flex;
+    margin: 0;
+    .cust-sticky-top {
+        position: fixed;
+        right: 0;
+    }
+}
+.ordering-container{
+    overflow: scroll;
+    padding-top: 1rem;
+}
+.ordering-container::-webkit-scrollbar {
+    display: none;
+}
+
+:host ::ng-deep accordion-group .panel {
+    .panel-body .accordion-body{
+        display: flex;
+        .btn-section {
+            margin-left: auto;
+            .quantityNumber {
+                padding: 1rem;
+            }
+        }
+    }
+    .panel-title .btn.btn-link {
+        text-decoration: none;
+        color: black;
+        &click {
+            border: none;
+        }
+    }
+}
+
+.cart-section {
+    .cart-inner-section {
+        height: 20rem;
+        overflow-y: scroll;
+        margin: 1rem;
+        padding: 1rem;
+        border: 1px solid grey;
+    }
+    .quantity-section {
+        display: flex;
+        .cart-Items {
+            margin: 0 1rem;
+        }
+    }
+    .total-section {
+        padding: 1rem;
+        margin: 1rem;
+        display: flex;
+        flex-flow: column wrap;
+        .cost-area {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
