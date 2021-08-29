@@ -32,7 +32,7 @@
       </button>
     </div>
     <!-- menu list -->
-    <!-- <accordion [isAnimated]="true" *ngFor="let item of menuContent; let i = index">
+    <accordion [isAnimated]="true" *ngFor="let item of menuContent; let i = index">
       <accordion-group heading="{{item.menuHeading}}">
         <div class="accordion-body" *ngFor="let initem of item.menuList; let j = index">
           <div class="item-section">
@@ -50,7 +50,7 @@
           </div>
         </div>
       </accordion-group>
-    </accordion> -->
+    </accordion>
     <!-- cartSelect -->
   </div>
   <div class="cust-sticky-top col-md-4 cart-section" *ngIf="enableCart">

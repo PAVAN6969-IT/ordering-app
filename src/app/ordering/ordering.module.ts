@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { OrderingRoutingModule } from './ordering-routing.module';
 import { OrderingComponent } from './component/ordering.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { OrderingComponent } from './component/ordering.component';
   ],
   imports: [
     CommonModule,
-    OrderingRoutingModule
+    OrderingRoutingModule,
+    AccordionModule.forRoot()
   ]
 })
 export class OrderingModule { }
