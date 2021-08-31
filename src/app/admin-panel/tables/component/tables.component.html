@@ -1,0 +1,9 @@
+<div class="container">
+    <div #tableResvr class="table-resvr" *ngFor="let item of orderLists">
+        <p> Table No: <code> {{item.tableno}}</code></p>
+        <ul *ngFor="let inneritem of item.menuList">
+            <li><span> {{inneritem.itemName}} - {{inneritem.quantity}}</span> </li>
+        </ul>
+        <a class="morebtn" (mouseenter)="hoverItems()"><span *ngIf="item.menuList.length > 3">more..</span></a>
+    </div>
+</div>

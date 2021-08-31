@@ -1,0 +1,39 @@
+.container {
+    padding: 1rem;
+    .table-resvr {
+        width: 20%;
+        border: 1px solid grey;
+        border-radius: 5px;
+        padding: 1rem;
+        float: left;
+        margin-right: 1rem;
+        margin-bottom: 2rem;
+        height: 8rem;
+        overflow: hidden;
+        -webkit-transition:width 1s;
+        -moz-transition:width 1s;
+        transition:width 1s;
+        li {
+            line-height: 0px;
+            font-size: 0.8rem;
+        }
+        p code {
+            font-size: 1em;
+        }
+        a.morebtn {
+            font-size: 0.9rem;
+            float: right;
+            text-decoration: none;
+            color: deeppink;
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+        &:hover {
+            background-color: #efefef;
+            width: 22%;
+            height: auto;
+        }
+    }
+}

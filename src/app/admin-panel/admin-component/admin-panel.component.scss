@@ -1,0 +1,14 @@
+.container-fuild .nav-bg-color {
+    background-color: #7675751a;
+    ul.navbar-nav {
+        margin-left: auto;
+        margin-right: 5rem;
+        .nav-item:hover {
+            background-color: #999999;
+            border-radius: 2px;
+            a:hover {
+                color: white;
+            }
+        }
+    }
+}
