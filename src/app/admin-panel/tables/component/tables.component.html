@@ -1,9 +1,30 @@
 <div class="container">
-    <div #tableResvr class="table-resvr" *ngFor="let item of orderLists">
-        <p> Table No: <code> {{item.tableno}}</code></p>
-        <ul *ngFor="let inneritem of item.menuList">
-            <li><span> {{inneritem.itemName}} - {{inneritem.quantity}}</span> </li>
-        </ul>
-        <a class="morebtn" (mouseenter)="hoverItems()"><span *ngIf="item.menuList.length > 3">more..</span></a>
+    <div #tableResvr class="table-resvr">
+        <div (click)="openModal(template, tableno)">
+            <p> Table No: <code> {{tableno}}</code></p>
+            <ul *ngFor="let item of orderLists.slice(0,3)">
+                <li><span> {{item.itemName}} - {{item.quantity}}</span> </li>
+            </ul>
+            <a class="morebtn"><span>more..</span></a>
+        </div>
     </div>
 </div>
+
+<ng-template #template>
+  <div class="modal-header" *ngIf="selectedItem">
+    <h4 class="modal-title pull-left">Table No: <code> {{tableno}}</code></h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <code *ngIf="totalItemsSelected" > {{totalItemsSelected}} Item</code>
+    <ul *ngFor="let inneritem of selectedItem">
+        <li><span> {{inneritem.itemName}} - {{inneritem.quantity}}</span> </li>
+    </ul>
+  <h4 class="modal-title pull-left">Total Cost: <code> {{subTotalVal}}</code></h4>
+  </div>
+  <div>
+    <button class="btn btn-info" type="button">Checkout <i class="fa fa-right arroe"></i></button>
+  </div>
+</ng-template>

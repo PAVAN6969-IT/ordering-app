@@ -54,7 +54,13 @@ export class OrderingComponent implements OnInit {
   selectedNoItems:number = 0;
   totalItemsSelected:number = 0;
   subTotalVal:number =0;
-  cartItems: ItemI[] = [];
+  cartItems: ItemI[] =[];
+  checkoutList = {
+    menuList: {},
+    tableno: 0,
+    totalItemsSelected: 0,
+    subTotalVal: 0
+  };
 
   constructor() { }
 
@@ -90,6 +96,14 @@ export class OrderingComponent implements OnInit {
     initem.quantity++;
     this.totalItemsSelected++;
     this.subTotalVal = this.subTotalVal + initem.itemPrice;
+  }
+
+  Checkout() {
+    this.checkoutList.tableno = 11;
+    this.checkoutList.menuList = this.cartItems;
+    this.checkoutList.subTotalVal = this.subTotalVal;
+    this.checkoutList.totalItemsSelected = this.totalItemsSelected;
+    window.localStorage.setItem('checkoutObj', JSON.stringify(this.checkoutList));
   }
 
   ngOnInit(): void {

@@ -1,103 +1,123 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { checkoutI } from 'src/app/admin-panel/checkout.interface';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { tablesI } from '../../tables.interface';
 
 @Component({
   selector: 'app-tables',
   templateUrl: './tables.component.html',
   styleUrls: ['./tables.component.scss']
 })
+
 export class TablesComponent implements OnInit {
 
-  @ViewChild('tableResvr') tableResvr: ElementRef | any;
+  modalRef?: BsModalRef;
+  selectedItem: tablesI[] = [];
+  selectedItemTableNumber: number = 0;
+  checkedOutList :any;
+  orderLists: any;
+  tableno:number = 0;
+  totalItemsSelected: number = 0;
+  subTotalVal: number =0;
 
-  constructor() { }
+  constructor(private modalService: BsModalService) {
+    this.checkedOutList = JSON.parse(window.localStorage.getItem("checkoutObj") || '{}');
+  }
 
-  orderLists = [
-    { tableno: 1 , menuList:[
-      { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
-      { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-      { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-      { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-      { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-      { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
-      ]
-    },
-    { tableno:2,  menuList:[
-        { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
-        { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
-        { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
-      ] },{ tableno: 1 , menuList:[
-        { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
-        { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-        { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-        { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-        { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-        { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
-        ]
-      },
-      { tableno:2,  menuList:[
-          { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
-          { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
-          { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
-        ] },{ tableno: 1 , menuList:[
-          { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
-          { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-          { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-          { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-          { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-          { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
-          ]
-        },
-        { tableno:2,  menuList:[
-            { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
-            { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
-            { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
-          ] },{ tableno: 1 , menuList:[
-            { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
-            { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-            { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-            { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-            { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-            { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
-            ]
-          },
-          { tableno:2,  menuList:[
-              { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
-              { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
-              { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
-            ] },{ tableno: 1 , menuList:[
-              { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
-              { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-              { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-              { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-              { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-              { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
-              ]
-            },
-            { tableno:2,  menuList:[
-                { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
-                { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
-                { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
-              ] },{ tableno: 1 , menuList:[
-                { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
-                { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-                { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-                { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-                { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
-                { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
-                ]
-              },
-              { tableno:2,  menuList:[
-                  { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
-                  { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
-                  { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
-                ] },
-  ];
+  // orderLists = [
+  //   { tableno: 1 , menuList:[
+  //     { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
+  //     { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //     { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //     { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //     { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //     { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
+  //     ]
+  //   },
+  //   { tableno:2,  menuList:[
+  //       { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
+  //       { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
+  //       { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
+  //     ] },{ tableno: 1 , menuList:[
+  //       { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
+  //       { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //       { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //       { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //       { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //       { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
+  //       ]
+  //     },
+  //     { tableno:2,  menuList:[
+  //         { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
+  //         { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
+  //         { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
+  //       ] },{ tableno: 1 , menuList:[
+  //         { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
+  //         { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //         { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //         { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //         { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //         { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
+  //         ]
+  //       },
+  //       { tableno:2,  menuList:[
+  //           { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
+  //           { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
+  //           { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
+  //         ] },{ tableno: 1 , menuList:[
+  //           { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
+  //           { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //           { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //           { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //           { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //           { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
+  //           ]
+  //         },
+  //         { tableno:2,  menuList:[
+  //             { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
+  //             { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
+  //             { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
+  //           ] },{ tableno: 1 , menuList:[
+  //             { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
+  //             { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //             { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //             { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //             { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //             { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
+  //             ]
+  //           },
+  //           { tableno:2,  menuList:[
+  //               { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
+  //               { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
+  //               { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
+  //             ] },{ tableno: 1 , menuList:[
+  //               { id:1,itemName:'Chicken Tikka', itemPrice:229, quantity:0},
+  //               { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //               { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //               { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //               { id:2,itemName:'Chicken 555 Full', itemPrice:299, quantity:0  },
+  //               { id:3,itemName:'Baby Corn Manchurian', itemPrice:240, quantity:0  }
+  //               ]
+  //             },
+  //             { tableno:2,  menuList:[
+  //                 { id:4,itemName:'Phirni', itemPrice:60, quantity:0  },
+  //                 { id:5,itemName:'Kaddu Ki Kheer', itemPrice:70, quantity:0  },
+  //                 { id:6,itemName:'Qubani Ka Meetha', itemPrice:70, quantity:0  }
+  //               ] },
+  // ];
 
-  hoverItems() {
-    alert( this.tableResvr.nativeElement);
+
+  openModal(template: TemplateRef<any>, tableno: any) {
+    this.modalRef = this.modalService.show(template);
+    this.selectedItemTableNumber = tableno;
+    this.selectedItem = this.orderLists;
   }
 
   ngOnInit(): void {
+    this.orderLists = this.checkedOutList.menuList;
+    this.tableno = this.checkedOutList.tableno;
+    this.totalItemsSelected = this.checkedOutList.totalItemsSelected;
+    this.subTotalVal = this.checkedOutList.subTotalVal;
   }
 
 }
