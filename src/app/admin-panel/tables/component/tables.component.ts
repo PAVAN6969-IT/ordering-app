@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/
 import { checkoutI } from 'src/app/admin-panel/checkout.interface';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { tablesI } from '../../tables.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tables',
@@ -20,8 +21,8 @@ export class TablesComponent implements OnInit {
   totalItemsSelected: number = 0;
   subTotalVal: number =0;
 
-  constructor(private modalService: BsModalService) {
-    this.checkedOutList = JSON.parse(window.localStorage.getItem("checkoutObj") || '{}');
+  constructor(private modalService: BsModalService, private http_: HttpClient ) {
+    // this.checkedOutList = JSON.parse(window.localStorage.getItem("checkoutObj") || '{}');
   }
 
   // orderLists = [
@@ -114,10 +115,14 @@ export class TablesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.orderLists = this.checkedOutList.menuList;
-    this.tableno = this.checkedOutList.tableno;
-    this.totalItemsSelected = this.checkedOutList.totalItemsSelected;
-    this.subTotalVal = this.checkedOutList.subTotalVal;
+    this.http_.get('http://localhost:3041').subscribe(res => {
+      // this.orderLists = this.checkedOutList.menuList;
+      // this.tableno = this.checkedOutList.tableno;
+      // this.totalItemsSelected = this.checkedOutList.totalItemsSelected;
+      // this.subTotalVal = this.checkedOutList.subTotalVal;
+      console.log(res);
+    })
+
   }
 
 }

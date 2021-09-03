@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\ordering-app"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

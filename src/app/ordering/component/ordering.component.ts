@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ItemI } from '../ItemInterface';
+import Pusher from 'pusher-js';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-ordering',
@@ -55,14 +58,16 @@ export class OrderingComponent implements OnInit {
   totalItemsSelected:number = 0;
   subTotalVal:number =0;
   cartItems: ItemI[] =[];
-  checkoutList = {
-    menuList: {},
-    tableno: 0,
-    totalItemsSelected: 0,
-    subTotalVal: 0
-  };
+  checkoutList = [
+    {
+      menuList: {},
+      tableno: 0,
+      totalItemsSelected: 0,
+      subTotalVal: 0
+    }
+  ];
 
-  constructor() { }
+  constructor(private http_: HttpClient, private router_: Router) { }
 
   addItemBtn(initem:ItemI){
     initem.quantity++;
@@ -99,14 +104,37 @@ export class OrderingComponent implements OnInit {
   }
 
   Checkout() {
-    this.checkoutList.tableno = 11;
-    this.checkoutList.menuList = this.cartItems;
-    this.checkoutList.subTotalVal = this.subTotalVal;
-    this.checkoutList.totalItemsSelected = this.totalItemsSelected;
-    window.localStorage.setItem('checkoutObj', JSON.stringify(this.checkoutList));
+    this.checkoutList.map(item => {
+      item.tableno = 11;
+      item.menuList = this.cartItems;
+      item.subTotalVal = this.subTotalVal;
+      item.totalItemsSelected = this.totalItemsSelected;
+    })
+  }
+
+  pushApi() {
+    this.http_.post('http://localhost:4200/admin/table', {
+      username: 'pavan',
+      content: this.checkoutList
+    });
+    // window.localStorage.setItem('checkoutObj', JSON.stringify(this.checkoutList));
+    this.router_.navigateByUrl('/admin/table');
+  }
+
+  pusher() {
+    const pusher = new Pusher('c0ba14198f9f9b341121', {
+      cluster: 'ap2'
+    });
+
+    const channel = pusher.subscribe('ordering-app');
+    channel.bind('add', (data: { menuList: {}; tableno: number; totalItemsSelected: number; subTotalVal: number; }) => {
+      this.checkoutList.push(data);
+    });
   }
 
   ngOnInit(): void {
+    Pusher.logToConsole = true;
+    this.pusher();
   }
 
 }

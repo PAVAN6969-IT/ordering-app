@@ -6,4 +6,5 @@ export interface checkoutI {
   };
   totalItemsSelected: number;
   subTotalVal: number;
+  tableno: number
 }

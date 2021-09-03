@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { HttpClientModule } from '@angular/common/http';
 import { OrderingRoutingModule } from './ordering-routing.module';
 import { OrderingComponent } from './component/ordering.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
@@ -13,6 +13,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
   imports: [
     CommonModule,
     OrderingRoutingModule,
+    HttpClientModule,
     AccordionModule.forRoot()
   ]
 })
